@@ -2,21 +2,12 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <h2 class="text-center text-dark mt-5">Regiseter Form</h2>
+        <h2 class="text-center text-dark mt-5">My Profile</h2>
         <div class="card my-5">
           <form
             class="card-body cardbody-color p-lg-5"
-            @submit.prevent="register"
+            @submit.prevent="UpdateProfile"
           >
-            <div class="text-center">
-              <img
-                src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
-                class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                width="200px"
-                alt="profile"
-              />
-            </div>
-
             <div class="mb-3">
               <input
                 type="text"
@@ -58,18 +49,7 @@
             </div>
             <div class="text-center">
               <button type="submit" class="btn btn-primary px-5 mb-5 w-100">
-                Register
-              </button>
-            </div>
-            <div id="emailHelp" class="form-text text-center mb-5 text-dark">
-              already haven an account
-              <router-link to="/login" class="text-dark fw-bold">
-                Login</router-link
-              >
-
-              <button @click="RouteSinGinPage()">Login Function</button>
-              <button @click="redirectTo({ val: 'LoginPage' })">
-                Login vuex
+                Update Now
               </button>
             </div>
           </form>
@@ -80,16 +60,23 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import { reactive, computed } from "vue";
 import router from "../router/index";
 import useVuelidate from "@vuelidate/core";
 import { required, email, minLength /**helpers*/ } from "@vuelidate/validators";
 import axios from "axios";
 export default {
-  name: "RegisterPage",
+  mounted() {
+    let user = localStorage.getItem("user-info");
 
-  //composition Api
+    if (user) {
+      this.state.name = JSON.parse(user).name;
+      this.state.email = JSON.parse(user).email;
+      this.state.pass = JSON.parse(user).password;
+    } else {
+      router.push({ name: "LoginPage" });
+    }
+  },
   setup() {
     const state = reactive({
       name: "",
@@ -105,21 +92,13 @@ export default {
         pass: {
           minLength: minLength(6),
           required,
-          // containsPasswordRequirement: helpers.withMessage(
-          //   () =>
-          //     "The password requires an uppercase, lowercase, number and special character",
-          //   (value) =>
-          //     /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/.test(
-          //       value.toString()
-          //     )
-          // ),
         },
       };
     });
 
     const v$ = useVuelidate(rules, state);
 
-    let register = async () => {
+    let UpdateProfile = async () => {
       try {
         const isFormCorrect = await v$.value.$validate();
         if (!isFormCorrect) return;
@@ -127,7 +106,7 @@ export default {
         let response = await axios.post("http://localhost:3000/users", {
           name: state.name,
           email: state.email,
-          pass: state.pass,
+          password: state.pass,
         });
         console.log(response?.data);
         if (response?.status == 201) {
@@ -140,61 +119,9 @@ export default {
       }
     };
 
-    return { state, v$, register };
-  },
-  date() {
-    return {
-      // v$: useValidate(),
-      // email: "",
-      // name: "",
-      // pass: "",
-    };
-  },
-  mounted() {
-    let user = localStorage.getItem("user-info");
-    console.log(user);
-    if (user) {
-      router.push({ name: "HomePage" });
-    }
-  },
-  methods: {
-    ...mapActions(["redirectTo"]),
-    // async register() {
-    //   // console.log("register");
-
-    //   this.v$.$validate(); // checks all inputs
-    //   if (!this.v$.$error) {
-    //     // if ANY fail validation
-    //     console.log("Form successfully submitted.");
-    //   } else {
-    //     console.log("Form failed validation");
-    //   }
-    // },
-
-    RouteSinGinPage() {
-      this.redirectTo({ val: "LoginPage" });
-    },
+    return { state, v$, UpdateProfile };
   },
 };
 </script>
 
-<style>
-.btn-color {
-  background-color: #0e1c36;
-  color: #fff;
-}
-
-.profile-image-pic {
-  height: 200px;
-  width: 200px;
-  object-fit: cover;
-}
-
-.cardbody-color {
-  background-color: #ebf2fa;
-}
-
-a {
-  text-decoration: none;
-}
-</style>
+<style></style>
