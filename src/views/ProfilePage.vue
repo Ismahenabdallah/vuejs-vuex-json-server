@@ -72,7 +72,8 @@ export default {
     if (user) {
       this.state.name = JSON.parse(user).name;
       this.state.email = JSON.parse(user).email;
-      this.state.pass = JSON.parse(user).password;
+      this.state.pass = JSON.parse(user).pass;
+      this.state.userId = JSON.parse(user).id;
     } else {
       router.push({ name: "LoginPage" });
     }
@@ -82,6 +83,7 @@ export default {
       name: "",
       email: "",
       pass: "",
+      userId: "",
     });
     // validation
     const rules = computed(() => {
@@ -103,16 +105,19 @@ export default {
         const isFormCorrect = await v$.value.$validate();
         if (!isFormCorrect) return;
         // alert("passed");
-        let response = await axios.post("http://localhost:3000/users", {
-          name: state.name,
-          email: state.email,
-          password: state.pass,
-        });
-        console.log(response?.data);
-        if (response?.status == 201) {
+        let response = await axios.put(
+          `http://localhost:3000/users/${state.userId}`,
+          {
+            name: state.name,
+            email: state.email,
+            pass: state.pass,
+          }
+        );
+        console.log(response);
+        if (response?.status == 200) {
           localStorage.setItem("user-info", JSON.stringify(response.data));
 
-          router.push({ name: "LoginPage" });
+          router.push({ name: "HomePage" });
         }
       } catch (error) {
         console.log(error);

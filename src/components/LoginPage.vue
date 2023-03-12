@@ -117,6 +117,7 @@ export default {
           localStorage.getItem("user-info");
           //this.$store.state.user = JSON.parse(response.data[0]);
           //this.saveUser(JSON.parse(response.data[0]));
+          window.location.reload();
           router.push({ name: "HomePage" });
           console.log(response.data);
         } else {

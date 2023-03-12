@@ -3,7 +3,9 @@ import HomePage from '../views/HomePage.vue'
 import LoginPage from '../components/LoginPage.vue'
 import RegisterPage from '../components/RegisterPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
-import NotFoundPage from '../components/NotFoundPage.vue'
+//import NotFoundPage from '../components/NotFoundPage.vue'
+import DeleteRestaurent from "../components/DeleteRestaurent";
+
 const routes = [
   {
     path: '/',
@@ -30,12 +32,20 @@ const routes = [
     name: 'ProfilePage',
     component: ProfilePage
   },
-  {
-    path: "/:catchAll(.*)",
-    name: 'NotFoundPage',
-    component: NotFoundPage
 
-  }
+  {
+    path: "/delete/:RestaurentId ",
+    name: 'DeleteRestaurent',
+    component: DeleteRestaurent
+
+  },
+  {
+    path: '/:catchAll(.*)*',
+    name: 'HomePage',
+    component: HomePage
+
+  },
+
 ]
 
 const router = createRouter({
@@ -43,11 +53,11 @@ const router = createRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  // if (to.params.pageTitle !== "undefined") {
-  //   document.title = `${to.name} | ${to.params.pageTitle}  | ${process.env.Title_app}`
+  if (to.params.pageTitle !== "undefined") {
+    document.title = `${to.name} | ${to.params.pageTitle}  | ${process.env.Title_app}`
 
 
-  // }
+  }
 
   if (to.name == null) {
     document.title = "Unknown page"
