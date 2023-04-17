@@ -1,2 +1,0 @@
-cd C:\Users\ACER\Desktop\codage\vue\rest-system\src\DB 
-json-server --watch db.json (in cmd)

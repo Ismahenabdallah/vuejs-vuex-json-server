@@ -4,8 +4,10 @@ import LoginPage from '../components/LoginPage.vue'
 import RegisterPage from '../components/RegisterPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
 //import NotFoundPage from '../components/NotFoundPage.vue'
-import DeleteRestaurent from "../components/DeleteRestaurent";
-
+import DeleteRestaurent from "../Restaurent/DeleteRestaurent";
+import UpdateRestaurent from "../Restaurent/UpdateRestaurent";
+import MenuPage from '@/Restaurent/menu/MenuPage';
+import AddNewCategories from "@/Restaurent/menu/AddNewCategories";
 const routes = [
   {
     path: '/',
@@ -37,6 +39,24 @@ const routes = [
     path: "/delete/:RestaurentId ",
     name: 'DeleteRestaurent',
     component: DeleteRestaurent
+
+  },
+  {
+    path: "/update/:RestaurentId ",
+    name: 'UpdateRestaurent',
+    component: UpdateRestaurent
+
+  },
+  {
+    path: "/menu/:RestaurentId ",
+    name: 'MenuPage',
+    component: MenuPage
+
+  },
+  {
+    path: "/addcategories/restaurentId/:RestaurentId ",
+    name: 'AddNewCategories',
+    component: AddNewCategories
 
   },
   {

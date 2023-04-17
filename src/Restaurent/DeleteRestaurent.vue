@@ -20,6 +20,18 @@
         <button class="btn btn-info" @click="goBack()">Go Back</button>
         <button class="btn btn-danger" @click="deleteRes()">Delete Now</button>
       </div>
+      <div
+        v-if="successMessage.length > 0"
+        class="col-auto m-4 -block mx-auto alert alert-success"
+      >
+        {{ successMessage }}
+      </div>
+      <div
+        v-if="errorMessage.length > 0"
+        class="col-auto d-block mx-auto alert alert-danger"
+      >
+        {{ errorMessage }}
+      </div>
     </form>
   </div>
 </template>
@@ -37,6 +49,8 @@ export default {
       userId: "",
       paramsRes: "",
       restaurentData: [],
+      successMessage: "",
+      errorMessage: "",
     };
   },
   mounted() {
@@ -65,7 +79,6 @@ export default {
         this.adress = this.restaurentData[0].adress;
         this.phone = this.restaurentData[0].phone;
 
-        console.log(result.data);
       } else {
         router.push({ name: "HomePage" });
       }
@@ -75,12 +88,15 @@ export default {
         `http://localhost:3000/restaurent/${this.paramsRes}`
       );
       if (result.status == 200) {
-        // setTimeout(() => {
-        //   router.push({ name: "HomePage" });
-        // },1000);
-        router.push({ name: "HomePage" });
+        this.successMessage = "Deleted successfully";
+        this.errorMessage = "";
+        setTimeout(() => {
+          router.push({ name: "HomePage" });
+        }, 1000);
       } else {
-        console.log("something went wrong");
+        this.successMessage = "";
+     
+        this.errorMessage = "Something went wrong";
       }
     },
   },
@@ -88,9 +104,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// *{
-//     overflow: hidden;
-// }
+*{
+  text-align: center;
+
+}
 button {
   margin: 0 0.5%;
 }

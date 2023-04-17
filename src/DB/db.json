@@ -1,34 +1,11 @@
 {
   "users": [
-    {
-      "name": "123",
-      "email": "123@gmail.com",
-      "pass": "123123",
-      "id": 1
-    },
+    
     {
       "name": "ismahen",
       "email": "ismahen@gmail.com",
       "pass": "123123",
-      "id": 2
-    },
-    {
-      "name": "ikram",
-      "email": "ikram@gmail.com",
-      "pass": "123123",
-      "id": 3
-    },
-    {
-      "name": "najla",
-      "email": "najla@gmail.com",
-      "pass": "123123",
-      "id": 4
-    },
-    {
-      "name": "thamer",
-      "email": "thamer@gmail.com",
-      "pass": "123123",
-      "id": 5
+      "id": 1
     }
   ],
   "restaurent": [
@@ -39,40 +16,41 @@
       "userId": 1,
       "id": 1
     },
-    {
-      "name": "ma9rouna",
-      "phone": "55369784",
-      "adress": "sfax",
-      "userId": 3,
-      "id": 3
-    },
-    {
-      "name": "soos ",
-      "phone": "55369784",
-      "adress": "sfax",
-      "userId": 3,
-      "id": 5
-    },
-    {
-      "name": "m7amsa",
-      "phone": "55369784",
-      "adress": "beja",
-      "userId": 1,
-      "id": 6
-    },
+   
     {
       "name": "yaourt naturel",
       "phone": "55369784",
       "adress": "chebba",
-      "userId": 4,
+      "userId": 1,
       "id": 7
     },
     {
       "name": "tom chocolat",
       "phone": "55369784",
       "adress": "sfax",
-      "userId": 5,
+      "userId": 1,
       "id": 8
     }
-  ]
+  ],
+  "categories": [
+    {
+      "name": "breackfast",
+      "userId": 1,
+      "restaurentId": 1,
+      "id": 1
+    },
+    {
+      "name": "Dinner",
+      "userId": 1,
+      "restaurentId": 1,
+      "id": 2
+    },
+    {
+      "name": "Dinner",
+      "userId": 1,
+      "restaurentId": 1,
+      "id": 2
+    }
+  ],
+  "items": []
 }

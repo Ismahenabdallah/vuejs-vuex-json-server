@@ -113,7 +113,7 @@ export default {
             pass: state.pass,
           }
         );
-        console.log(response);
+      
         if (response?.status == 200) {
           localStorage.setItem("user-info", JSON.stringify(response.data));
 

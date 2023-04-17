@@ -129,7 +129,7 @@ export default {
           email: state.email,
           pass: state.pass,
         });
-        console.log(response?.data);
+      
         if (response?.status == 201) {
           localStorage.setItem("user-info", JSON.stringify(response.data));
 
@@ -152,24 +152,14 @@ export default {
   },
   mounted() {
     let user = localStorage.getItem("user-info");
-    console.log(user);
+    
     if (user) {
       router.push({ name: "HomePage" });
     }
   },
   methods: {
     ...mapActions(["redirectTo"]),
-    // async register() {
-    //   // console.log("register");
-
-    //   this.v$.$validate(); // checks all inputs
-    //   if (!this.v$.$error) {
-    //     // if ANY fail validation
-    //     console.log("Form successfully submitted.");
-    //   } else {
-    //     console.log("Form failed validation");
-    //   }
-    // },
+  
 
     RouteSinGinPage() {
       this.redirectTo({ val: "LoginPage" });

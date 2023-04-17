@@ -16,7 +16,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item" v-if="loggedIn">
+            <li class="nav-item" v-if="isUserLoggIn">
               <router-link
                 class="nav-link active"
                 aria-current="page"
@@ -25,16 +25,16 @@
               >
             </li>
 
-            <li class="nav-item" v-if="!loggedIn">
+            <li class="nav-item" v-if="!isUserLoggIn">
               <router-link class="nav-link" to="/login">Login</router-link>
             </li>
-            <li class="nav-item" v-if="!loggedIn">
+            <li class="nav-item" v-if="!isUserLoggIn">
               <router-link class="nav-link" to="/register"
                 >Register</router-link
               >
             </li>
           </ul>
-          <form class="d-flex" v-if="loggedIn">
+          <form class="d-flex" v-if="isUserLoggIn">
             <button class="btn btn-outline-success" @click="logout">
               logOut
             </button>
@@ -46,25 +46,32 @@
 </template>
 <script>
 import { mapActions } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "NavBar",
   data() {
     return {
-      loggedIn: false,
+     // loggedIn: false,
     };
+  },
+  computed: {
+    ...mapState(["isUserLoggIn"])
+     
   },
   mounted() {
     let user = localStorage.getItem("user-info");
 
     if (user) {
-      this.loggedIn = true;
+      //this.loggedIn = true;
+      this.isUserLoggInFunction();
     } else {
-      this.loggedIn = false;
+      //this.loggedIn = false;
     }
-    console.log(this.loggedIn);
+    console.log(this.isUserLoggIn);
   },
   methods: {
-    ...mapActions["redirectTo"],
+    ...mapActions(["redirectTo"]),
+    ...mapMutations(["isUserLoggInFunction"]),
     logout() {
       localStorage.clear("user-info");
       this.$store.state.user = null;

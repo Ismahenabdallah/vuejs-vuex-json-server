@@ -111,7 +111,7 @@ export default {
         let response = await axios.get(
           `http://localhost:3000/users?email=${state.email}&pass=${state.pass}`
         );
-        // console.log(response);
+   
         if (response.status == 200 && response.data.length > 0) {
           localStorage.setItem("user-info", JSON.stringify(response.data[0]));
           localStorage.getItem("user-info");
@@ -119,7 +119,7 @@ export default {
           //this.saveUser(JSON.parse(response.data[0]));
           window.location.reload();
           router.push({ name: "HomePage" });
-          console.log(response.data);
+         
         } else {
           state.userFound = "User not found";
         }
@@ -135,7 +135,7 @@ export default {
   },
   mounted() {
     let user = localStorage.getItem("user-info");
-    console.log(user);
+
     if (user) {
       router.push({ name: "HomePage" });
     }

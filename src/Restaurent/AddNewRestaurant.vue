@@ -121,7 +121,7 @@ export default {
 
     if (user) {
       this.state.userId = JSON.parse(user).id;
-      console.log(this.state.userId);
+     
     } else {
       router.push({ name: "LoginPage" });
     }
@@ -131,6 +131,7 @@ export default {
       name: "",
       adress: "",
       phone: "",
+      userId:""
     });
     // validation
     const rules = computed(() => {
@@ -158,7 +159,7 @@ export default {
           userId: state.userId,
         });
 
-        console.log(response);
+     
         if (response?.status == 201) {
           window.location.reload();
           router.push({ name: "HomePage" });
